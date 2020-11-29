@@ -1,24 +1,17 @@
 {
-  "adapters": {
-    "java-debug-server": {
-      "name": "vscode-java",
-      "port": "${AdapterPort}"
-    }
-  },
   "configurations": {
-    "Java Attach": {
-      "default": true,
-      "adapter": "java-debug-server",
+    "Python: Launch": {
+      "adapter": "debugpy",
       "configuration": {
-        "request": "attach",
-        "host": "127.0.0.1",
-        "port": "5005"
-      },
-      "breakpoints": {
-        "exception": {
-          "caught": "N",
-          "uncaught": "N"
-        }
+        "name": "Python: Launch",
+        "type": "python",
+        "request": "launch",
+        "cwd": "${workspaceRoot}",
+        "python": "/bin/python",
+        "stopOnEntry": true,
+        "console": "externalTerminal",
+        "debugOptions": [],
+        "program": "${workspaceRoot}"
       }
     }
   }

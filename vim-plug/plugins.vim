@@ -169,6 +169,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " Plug 'romgrk/lib.kom'
     " Plug 'brooth/far.vim'
     " Debugging
+    Plug 'lervag/vimtex'
+
   endif
 
 call plug#end()

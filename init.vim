@@ -61,6 +61,9 @@ else
   " source $HOME/.config/nvim/plug-config/vista.vim
   " source $HOME/.config/nvim/plug-config/xtabline.vim
   " source $HOME/.config/nvim/plug-config/ale.vim
+  
+  "my extra plugins
+  source $HOME/.config/nvim/plug-config/firenvim.vim
 endif
 source $HOME/.config/nvim/plug-config/quickscope.vim
 
