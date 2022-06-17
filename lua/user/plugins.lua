@@ -62,7 +62,7 @@ return packer.startup(function(use)
   -- Colorschemes
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "lunarvim/darkplus.nvim"
-  use "morhetz/gruvbox"
+  use "gruvbox-community/gruvbox"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -86,7 +86,9 @@ return packer.startup(function(use)
   use "jose-elias-alvarez/typescript.nvim" -- for formatters and linters
 
   -- Telescope
-  use "nvim-telescope/telescope.nvim"
+  use {"nvim-telescope/telescope.nvim", requires = {{'nvim-lua/plenary.nvim'}}}
+  use {"nvim-telescope/telescope-fzf-native.nvim", run = 'make'}
+  use "BurntSushi/ripgrep"
 
   -- Treesitter
   use {

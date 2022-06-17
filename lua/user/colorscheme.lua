@@ -1,3 +1,7 @@
+
+
+
+-- All settings/customizations should go before the command `colorscheme gruvbox`
 vim.cmd [[
 try
   colorscheme gruvbox

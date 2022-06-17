@@ -5,6 +5,7 @@ vim.cmd [[
     autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200}) 
     autocmd BufWinEnter * :set formatoptions-=cro
     autocmd FileType qf set nobuflisted
+    autocmd vimenter * ++nested colorscheme gruvbox
   augroup end
 
   augroup _git

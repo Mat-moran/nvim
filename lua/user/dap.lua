@@ -8,40 +8,10 @@
 -- - Connect using configuration from VS **** json file (see if VS **** is actually just "it works" LUL)
 -- - Completion in the repl, very cool for exploring objects / data
 
-
 local has_dap, dap = pcall(require, "dap")
 if not has_dap then
   return
 end
-
-local map = function(lhs, rhs, desc)
-  if desc then
-    desc = "[DAP] " .. desc
-  end -- TODO fallback a rhs si no hay descripcion
-
-  vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
-end
-
-
-map("<F1>", require("dap").step_back, "step_back")
-map("<F2>", require("dap").step_into, "step_into")
-map("<F3>", require("dap").step_over, "step_over")
-map("<F4>", require("dap").step_out, "step_out")
-map("<F5>", require("dap").continue, "continue")
-
-map("<leader>dr", require("dap").repl.open, "TODO poner descripcion")
-map("<leader>db", require("dap").toggle_breakpoint, 'toogle_breakpoint')
-
-map("<leader>dB", function()
-  require("dap").set_breakpoint(vim.fn.input "[DAP] Condition > ")
-end, "Set breakpoint with a specific contition")
-
-map("<leader>de", require("dapui").eval)
-
-map("<leader>dE", function()
-  require("dapui").eval(vim.fn.input "[DAP] Expression > ")
-end)
-
 
 
 -- vim.keymap.set("n", "<leader>b", ":lua require'dap'.toggle_breakpoint()<CR>")

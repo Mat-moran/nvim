@@ -1,3 +1,4 @@
+-- TODO convert to the lua native api vim.keymap.set() with a map function
 local opts = { noremap = true, silent = true }
 
 local term_opts = { silent = true }
@@ -66,4 +67,67 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 -- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+
+-- migration to lua native keymap set
+local map = function(m, lhs, rhs, desc) -- TODO permitir pasarle opciones dinamicas
+  if desc then
+     desc =  desc
+  else
+    desc = rhs -- TODO esto da problemas si rhs no es string
+  end
+
+  vim.keymap.set(m, lhs, rhs, { silent = true, desc = desc })
+end
+
+local buf_map = function(m, lhs, rhs)
+  vim.keymap.set(m, lhs, rhs, { buffer = 0})
+end
+
+-- Buffers
+map("n","<leader>c", "<cmd>Bdelete!<cr>", "[BUF] close buffer")
+
+-- nvim tree
+map("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", "[NVIM TREE] open explorer")
+
+-- telescope
+map("n","<leader>sf", require("telescope.builtin").find_files, "[telescope] find_files")
+map('n',"<leader>st", require("telescope.builtin").live_grep, "[telescope] grep_string")
+map('n',"<leader>su", require("telescope.builtin").grep_string, "[telescope] grep_string")
+
+
+-- dap
+map("n","<F1>", require("dap").step_back, "[DEBUG] step_back")
+map("n","<F2>", require("dap").step_into, "[DEBUG] step_into")
+map("n","<F3>", require("dap").step_over, "[DEBUG] step_over")
+map("n","<F4>", require("dap").step_out, "[DEBUG] step_out")
+map("n","<F5>", require("dap").continue, "[DEBUG] continue")
+map("n","<leader>dr", require("dap").repl.open, "[DEBUG] repl.open")
+map("n","<leader>db", require("dap").toggle_breakpoint, '[DEBUG] toogle breakpoint')
+map("n","<leader>dB", function()
+  require("dap").set_breakpoint(vim.fn.input "[DEBUG] Condition > ")
+end, "[DEBUG] Set breakpoint with a specific contition")
+map("n","<leader>de", require("dapui").eval)
+map("n","<leader>dE", function()
+  require("dapui").eval(vim.fn.input "[DEBUG] Expression > ")
+end)
+
+-- lazygit
+map('n', '<leader>gg', "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit", '[git] open lazygit')
+map('n', '<leader>gb', "<cmd>lua require 'gitsigns'.blame_line()<cr>", "[git] Blame line")
+-- map('n',"<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+-- map("<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+-- map("<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
+-- map("<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+-- map("<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+-- map("<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+
+-- lsp
+buf_map('i', '<c-s>', vim.lsp.buf.signature_help)
+buf_map('n', 'K', vim.lsp.buf.hover)
+buf_map('n', 'gd', vim.lsp.buf.definition)
+buf_map('n', 'gt', vim.lsp.buf.type_definition)
+buf_map('n', 'gi', vim.lsp.buf.implementation) -- not valid in python?
+buf_map('n', 'gl', vim.diagnostic.goto_next)
+buf_map('n', '<leader>r', vim.lsp.buf.rename)
+buf_map('n', '<leader>gl', '<cmd>Telescope diagnostics<cr>') -- <c-q> to add it to quickfix list
 

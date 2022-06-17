@@ -11,19 +11,20 @@ require("user.lsp.lsp-installer")
 
 -- Servers config
 local function common_keymaps()
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, {buffer=0})
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {buffer=0})
-  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, {buffer=0})
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {buffer=0}) -- not valid in python?
-  vim.keymap.set('n', 'gl', vim.diagnostic.goto_next, {buffer=0})
-  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, {buffer=0})
-  vim.keymap.set('n', '<leader>gl', '<cmd>Telescope diagnostics<cr>', {buffer=0}) -- <c-q> to add it to quickfix list
+  vim.keymap.set('i', '<c-s>', vim.lsp.buf.signature_help, {buffer = 0})
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, {buffer = 0})
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {buffer = 0})
+  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, {buffer = 0})
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {buffer = 0}) -- not valid in python?
+  vim.keymap.set('n', 'gl', vim.diagnostic.goto_next, {buffer = 0})
+  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, {buffer = 0})
+  vim.keymap.set('n', '<leader>gl', '<cmd>Telescope diagnostics<cr>') -- <c-q> to add it to quickfix list
 end
 
 local function common_on_attach(name)
   -- on_attach common functions and parameters
   common_keymaps()
-  vim.notify(name .. " attached", "info")
+  vim.notify(name .. " attached", "info") -- TODO xk notifica todos los servers aunque no este asociados al buffer que se abre?
 end
 
 -- global config
