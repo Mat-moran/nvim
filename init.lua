@@ -13,10 +13,12 @@ require "user.lualine"
 require "user.nvim-tree"
 require "user.toggleterm"
 require "user.project"
-require "user.gitsigns"
+--require "user.gitsigns"
+require "user.neogit"
+require "user.keymaps"
+require "user.autocommands"
+
 --require "user.impatient" -- de momento no lo necesito
 --require "user.indentline"
 --require "user.alpha" -- no necesario -> dashboard
 --require "user.whichkey"
-require "user.keymaps"
-require "user.autocommands"
